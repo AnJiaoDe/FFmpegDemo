@@ -2126,6 +2126,7 @@ AVFormatContext *avformat_alloc_context(void);
 
 /**
  * Free an AVFormatContext and all its streams.
+ * 释放AVFormatContext所有占用的内存
  * @param s context to free
  */
 void avformat_free_context(AVFormatContext *s);
@@ -2140,7 +2141,7 @@ const AVClass *avformat_get_class(void);
 
 /**
  * Add a new stream to a media file.
- *
+ *为多媒体文件创建一个流
  * When demuxing, it is called by the demuxer in read_header(). If the
  * flag AVFMTCTX_NOHEADER is set in s.ctx_flags, then it may also
  * be called in read_packet().
@@ -2204,6 +2205,7 @@ AVProgram *av_new_program(AVFormatContext *s, int id);
 
 /**
  * Allocate an AVFormatContext for an output format.
+ * 为输出格式分配AVFormatContext指针。
  * avformat_free_context() can be used to free the context and
  * everything allocated by the framework within it.
  *
@@ -2292,22 +2294,32 @@ int av_probe_input_buffer(AVIOContext *pb, ff_const59 AVInputFormat **fmt,
 
 /**
  * Open an input stream and read the header. The codecs are not opened.
+ * 打开一个输入流，并且读取其文件头。编解码器没有打开。
  * The stream must be closed with avformat_close_input().
- *
+ * 该输入流完事后必须调用avformat_close_input()关闭。
  * @param ps Pointer to user-supplied AVFormatContext (allocated by avformat_alloc_context).
+ * ps：为API使用者提供的二级指针AVFormatContext（由avformat_alloc_context（）分配）
  *           May be a pointer to NULL, in which case an AVFormatContext is allocated by this
  *           function and written into ps.
+ *     该指针可初始化为NULL，调用avformat_open_input（）后，会为该指针赋值。
  *           Note that a user-supplied AVFormatContext will be freed on failure.
+ *     注意：如果打开视频文件流失败，该指针会被置为NULL。
+ *
  * @param url URL of the stream to open.
+ * url:视频文件的URL路径
  * @param fmt If non-NULL, this parameter forces a specific input format.
+ * fmt:如果传值非NULL，改参数要求必须明确指定输入视频文件的格式。
  *            Otherwise the format is autodetected.
+ *     否则，视频文件的格式会自动检测。
  * @param options  A dictionary filled with AVFormatContext and demuxer-private options.
  *                 On return this parameter will be destroyed and replaced with a dict containing
  *                 options that were not found. May be NULL.
  *
  * @return 0 on success, a negative AVERROR on failure.
+ * 返回0：表示操作成功；返回负数：表示失败。
  *
  * @note If you want to use custom IO, preallocate the format context and set its pb field.
+ * 注意：如果你想使用自定义的IO，需要预先分配format context 并且设置其pb属性。
  */
 int avformat_open_input(AVFormatContext **ps, const char *url, ff_const59 AVInputFormat *fmt, AVDictionary **options);
 
@@ -2319,6 +2331,7 @@ int av_demuxer_open(AVFormatContext *ic);
  * is useful for file formats with no headers such as MPEG. This
  * function also computes the real framerate in case of MPEG-2 repeat
  * frame mode.
+ * 读取媒体文件的所有packets，获取流信息。
  * The logical file position is not changed by this function;
  * examined packets may be buffered for later processing.
  *
@@ -2384,6 +2397,7 @@ int av_find_best_stream(AVFormatContext *ic,
 
 /**
  * Return the next frame of a stream.
+ * 返回流的下一帧
  * This function returns what is stored in the file, and does not validate
  * that what is there are valid frames for the decoder. It will split what is
  * stored in the file into frames and return one for each call. It will not
@@ -2488,6 +2502,7 @@ int av_read_pause(AVFormatContext *s);
 /**
  * Close an opened input AVFormatContext. Free it and all its contents
  * and set *s to NULL.
+ * 关闭打开的input AVFormatContext。释放其所有内容占用的内存，赋值为NULL。
  */
 void avformat_close_input(AVFormatContext **s);
 /**
@@ -2674,7 +2689,7 @@ int av_write_uncoded_frame_query(AVFormatContext *s, int stream_index);
 /**
  * Write the stream trailer to an output media file and free the
  * file private data.
- *
+ *将流的尾部写入输出媒体文件，并且释放其私有数据占用的内存
  * May only be called after a successful call to avformat_write_header.
  *
  * @param s media file handle
@@ -2876,11 +2891,13 @@ void av_url_split(char *proto,         int proto_size,
  * Print detailed information about the input or output format, such as
  * duration, bitrate, streams, container, programs, metadata, side data,
  * codec and time base.
+ * 打印输入或输出格式的详细信息，
  *
  * @param ic        the context to analyze
  * @param index     index of the stream to dump information about
  * @param url       the URL to print, such as source or destination file
  * @param is_output Select whether the specified context is an input(0) or output(1)
+ *        is_output:0表示input，1表示output
  */
 void av_dump_format(AVFormatContext *ic,
                     int index,
