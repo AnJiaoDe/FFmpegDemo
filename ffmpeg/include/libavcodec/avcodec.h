@@ -4589,7 +4589,7 @@ int av_packet_ref(AVPacket *dst, const AVPacket *src);
 
 /**
  * Wipe the packet.
- * 清除packet占用的内存
+ *
  * Unreference the buffer referenced by the packet and reset the
  * remaining packet fields to their default values.
  *

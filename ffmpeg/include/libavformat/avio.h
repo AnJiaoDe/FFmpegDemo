@@ -759,6 +759,7 @@ int avio_close(AVIOContext *s);
  *
  * @return 0 on success, an AVERROR < 0 on error.
  * @see avio_close
+ *
  */
 int avio_closep(AVIOContext **s);
 
