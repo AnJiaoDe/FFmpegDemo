@@ -6,13 +6,10 @@
 #define FFMPEGDEMO_ENCODE_VIDEO_H
 
 extern "C"{
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 #include <libavcodec/avcodec.h>
-
 #include <libavutil/opt.h>
 #include <libavutil/imgutils.h>
 }
@@ -47,9 +44,10 @@ static void encode(AVCodecContext *enc_ctx, AVFrame *frame, AVPacket *pkt,
     }
 }
 
-int main_encode_video(char *inPath, char *outPath)
+int main_encode_video(char *inPath, AVCodecID codecId)
 {
-    const char *filename, *codec_name;
+    const char *filename;
+    AVCodecID avCodecId;
     const AVCodec *codec;
     AVCodecContext *c= NULL;
     int i, ret, x, y;
@@ -62,13 +60,14 @@ int main_encode_video(char *inPath, char *outPath)
 //        fprintf(stderr, "Usage: %s <output file> <codec name>\n", argv[0]);
 //        exit(0);
 //    }
+
     filename = inPath;
-    codec_name = outPath;
+    avCodecId = codecId;
 
     /* find the mpeg1video encoder */
-    codec = avcodec_find_encoder_by_name(codec_name);
+    codec = avcodec_find_encoder(avCodecId);
     if (!codec) {
-        fprintf(stderr, "Codec '%s' not found\n", codec_name);
+        fprintf(stderr, "Codec '%s' not found\n", avCodecId);
         exit(1);
     }
 
