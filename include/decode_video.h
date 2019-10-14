@@ -59,7 +59,7 @@ static void decode(AVCodecContext *dec_ctx, AVFrame *frame, AVPacket *pkt,
     }
 }
 
-int devode_video(char *inPath, char *outPath, AVCodecID avCodecId) {
+int main_devode_video(char *inPath, char *outPath, AVCodecID avCodecId) {
     const char *filename, *outfilename;
     const AVCodec *codec;
     AVCodecParserContext *parser;
