@@ -152,6 +152,7 @@ int main_devode_video(char *inPath, char *outPath, AVCodecID avCodecId) {
                 decode(c, frame, pkt, outfilename);
         }
     }
+    av_free_packet(pkt);
 
     /* flush the decoder */
     decode(c, frame, NULL, outfilename);
