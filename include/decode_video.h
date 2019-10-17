@@ -54,6 +54,9 @@ static void decode(AVCodecContext *dec_ctx, AVFrame *frame, AVPacket *pkt,
         /* the picture is allocated by the decoder. no need to
            free it */
         snprintf(buf, sizeof(buf), "%s", filename);
+
+        std::cout<<"xsize:"<<frame->width<<"ysize:"<<frame->height<< std::endl;
+
         pgm_save(frame->data[0], frame->linesize[0],
                  frame->width, frame->height, buf);
     }
@@ -102,6 +105,8 @@ int main_devode_video(char *inPath, char *outPath, AVCodecID avCodecId) {
     }
 
     c = avcodec_alloc_context3(codec);
+    c->width=1920;
+    c->height=1080;
     if (!c) {
         fprintf(stderr, "Could not allocate video codec context\n");
         exit(1);
@@ -152,6 +157,7 @@ int main_devode_video(char *inPath, char *outPath, AVCodecID avCodecId) {
                 decode(c, frame, pkt, outfilename);
         }
     }
+
     av_free_packet(pkt);
 
     /* flush the decoder */

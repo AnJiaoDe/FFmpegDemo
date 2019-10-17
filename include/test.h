@@ -20,7 +20,7 @@ extern "C"
 };
 char *src_filename ;
 char *dst_filename ;
-const int dst_w = 200, dst_h = 200;
+const int dst_w = 1920, dst_h = 1080;
 int video_stream_idx = -1;
 
 int open_codec_context(int *stream_idx,
