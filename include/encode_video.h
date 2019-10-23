@@ -91,13 +91,9 @@ int main_encode_video(char *fileInPath, char *fileOutPath) {
     int picture_size;
     int y_size;
     int framecnt = 0;
-    //FILE *in_file = fopen("src01_480x272.yuv", "rb");	//Input raw YUV data 
     FILE *in_file = fopen(fileInPath, "rb");   //Input raw YUV data
     int in_w = 1920, in_h = 1080;                              //Input data's width and height
     int framenum = 207;                                   //Frames to encode
-    //const char* out_file = "src01.h264";              //Output Filepath 
-    //const char* out_file = "src01.ts";
-    //const char* out_file = "src01.hevc";
     const char *out_file = fileOutPath;
 
     av_register_all();
@@ -119,8 +115,8 @@ int main_encode_video(char *fileInPath, char *fileOutPath) {
     }
 
     video_st = avformat_new_stream(pFormatCtx, 0);
-    video_st->time_base.num = 1;
-    video_st->time_base.den = 25;
+//    video_st->time_base.num = 1;
+//    video_st->time_base.den = 25;
 
     if (video_st == NULL) {
         return -1;
@@ -134,34 +130,34 @@ int main_encode_video(char *fileInPath, char *fileOutPath) {
     pCodecCtx->width = in_w;
     pCodecCtx->height = in_h;
     pCodecCtx->bit_rate = 4000000;
-//    pCodecCtx->gop_size = 250;
+    pCodecCtx->gop_size = 250;
 
     pCodecCtx->time_base.num = 1;
     pCodecCtx->time_base.den = 25;
 
     //H264
-    pCodecCtx->me_range = 16;
-    pCodecCtx->max_qdiff = 4;
-    pCodecCtx->qcompress = 0.6;
+//    pCodecCtx->me_range = 16;
+//    pCodecCtx->max_qdiff = 4;
+//    pCodecCtx->qcompress = 0.6;
     pCodecCtx->qmin = 10;
     pCodecCtx->qmax = 51;
 
     //Optional Param
-    pCodecCtx->max_b_frames = 3;
+//    pCodecCtx->max_b_frames = 3;
 
     // Set Option
     AVDictionary *param = 0;
     //H.264
-    if (pCodecCtx->codec_id == AV_CODEC_ID_H264) {
-        av_dict_set(&param, "preset", "slow", 0);
-        av_dict_set(&param, "tune", "zerolatency", 0);
-        //av_dict_set(param, "profile", "main", 0);
-    }
-    //H.265
-    if (pCodecCtx->codec_id == AV_CODEC_ID_H265) {
-        av_dict_set(&param, "preset", "ultrafast", 0);
-        av_dict_set(&param, "tune", "zero-latency", 0);
-    }
+//    if (pCodecCtx->codec_id == AV_CODEC_ID_H264) {
+//        av_dict_set(&param, "preset", "slow", 0);
+//        av_dict_set(&param, "tune", "zerolatency", 0);
+////        av_dict_set(param, "profile", "main", 0);
+//    }
+//    //H.265
+//    if (pCodecCtx->codec_id == AV_CODEC_ID_H265) {
+//        av_dict_set(&param, "preset", "ultrafast", 0);
+//        av_dict_set(&param, "tune", "zero-latency", 0);
+//    }
 
     //Show some Information
     av_dump_format(pFormatCtx, 0, out_file, 1);
@@ -181,7 +177,6 @@ int main_encode_video(char *fileInPath, char *fileOutPath) {
     picture_size = avpicture_get_size(pCodecCtx->pix_fmt, pCodecCtx->width, pCodecCtx->height);
     picture_buf = (uint8_t *) av_malloc(picture_size);
     avpicture_fill((AVPicture *) pFrame, picture_buf, pCodecCtx->pix_fmt, pCodecCtx->width, pCodecCtx->height);
-
     //Write File Header
     avformat_write_header(pFormatCtx, NULL);
 
