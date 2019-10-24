@@ -2,8 +2,8 @@
 // Created by cy on 2019/10/10.
 //
 
-#ifndef FFMPEGDEMO_ENCODE_VIDEO_H
-#define FFMPEGDEMO_ENCODE_VIDEO_H
+#ifndef FFMPEGDEMO_ENCODE_VIDEO_YUV_H264_LXY_H
+#define FFMPEGDEMO_ENCODE_VIDEO_YUV_H264_LXY_H
 /**
  * 最简单的基于FFmpeg的视频编码器
  * Simplest FFmpeg Video Encoder
@@ -79,7 +79,7 @@ int flush_encoder(AVFormatContext *fmt_ctx, unsigned int stream_index) {
     return ret;
 }
 
-int main_encode_video(char *fileInPath, char *fileOutPath) {
+int main_encode_video(char *fileInPath, const char *fileOutPath) {
     AVFormatContext *pFormatCtx;
     AVOutputFormat *fmt;
     AVStream *video_st;
@@ -237,4 +237,4 @@ int main_encode_video(char *fileInPath, char *fileOutPath) {
     return 0;
 }
 
-#endif //FFMPEGDEMO_ENCODE_VIDEO_H
+#endif //FFMPEGDEMO_ENCODE_VIDEO_YUV_H264_LXY_H
