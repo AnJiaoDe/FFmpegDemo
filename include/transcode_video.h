@@ -1,8 +1,0 @@
-//
-// Created by Administrator on 2019/10/11 0011.
-//
-
-#ifndef FFMPEGDEMO_TRANSCODE_VIDEO_H
-#define FFMPEGDEMO_TRANSCODE_VIDEO_H
-
-#endif //FFMPEGDEMO_TRANSCODE_VIDEO_H
