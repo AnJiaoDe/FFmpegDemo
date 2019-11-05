@@ -13,7 +13,7 @@ int main() {
 //    main_encode_video_yuv_h264("../resources/video_1920x1080.yuv","../resources/video_1920x1080.h264",AV_PIX_FMT_YUV420P,1920,1080,30);
     main_encode_audio_pcm_aac("../resources/video.pcm", "../resources/video.aac");
 //    main_encode_audio_pcm_aac_lxy("../resources/video.pcm", "../resources/video.aac");
-//    system("F:\\Êé\\ffmpeg\\ffmpeg-20190926-87ddf9f-win64-shared\\bin\\ffmpeg -i C:\\Users\\Administrator\\Desktop\\video.mp4 -vn -sn -y -acodec copy  ../resources/video.aac");
+//    system("F:\\ï¿½ï¿½\\ffmpeg\\ffmpeg-20190926-87ddf9f-win64-shared\\bin\\ffmpeg -i C:\\Users\\Administrator\\Desktop\\video.mp4 -vn -sn -y -acodec copy  ../resources/video.aac");
     system("pause");
     return 0;
 }

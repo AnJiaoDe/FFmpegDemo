@@ -67,11 +67,11 @@ int main_encode_audio_pcm_aac(char *fileInPath, const char *fileOutPath) {
     avCodecContext = avcodec_alloc_context3(avCodec);
     avCodecContext->codec_type = AVMEDIA_TYPE_AUDIO;
     avCodecContext->sample_fmt = AV_SAMPLE_FMT_S16;
-    if (!check_sample_fmt(avCodec, avCodecContext->sample_fmt)) {
-        fprintf(stderr, "Encoder does not support sample format %s",
-                av_get_sample_fmt_name(avCodecContext->sample_fmt));
-        goto end;
-    }
+//    if (!check_sample_fmt(avCodec, avCodecContext->sample_fmt)) {
+//        fprintf(stderr, "Encoder does not support sample format %s",
+//                av_get_sample_fmt_name(avCodecContext->sample_fmt));
+//        goto end;
+//    }
     avCodecContext->sample_rate = 44100;
     avCodecContext->channel_layout = select_channel_layout(avCodec);
     avCodecContext->channels = av_get_channel_layout_nb_channels(avCodecContext->channel_layout);
